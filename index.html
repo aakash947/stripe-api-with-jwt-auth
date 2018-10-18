@@ -1,0 +1,73 @@
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <style>
+      body{
+        background: #f1c40f;
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+      html{
+        font-family: sans-serif;
+      }
+
+      p {
+        margin:0;
+        padding:20px;
+        /* transition:background 0.2s; */
+        flex:1;
+        font-family:'helvetica neue';
+        font-size: 20px;
+        font-weight: 200;
+        border-left: 1px solid #D1E2FF;
+        min-width: 200px;
+        font-family:helvetica ;
+      }
+  </style>
+
+</head>
+<body>
+  <h3>Login</h1>
+  <form id="log" method="post">
+    Username: <input name="username" class="" type="text"/><br>
+    Password: <input name="password" class="" type="password"/><br>
+    <button class="d-inline btn btn-dark" type="submit"> login </button>
+  </form>
+</body>
+<script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+<script>
+$("#log").submit(function(e) {
+      var form = $(this);
+      var url = "api/payment";
+      var url1 = "api/pay";
+      $.ajax({
+             type: "POST",
+             url: url,
+             data: form.serialize(),
+             success: function(data)
+             {
+                localStorage.setItem('token',data);
+                $.ajax({
+                    type: "POST",
+                    headers:{
+                      'authorization' : 'bearer ' + data
+                    },
+                    url: url1,
+                    success: function(data)
+                    {
+                      // console.log(data.redirect);
+                      // window.location.assign(data.redirect);
+                    }
+                });
+             }
+           });
+
+      e.preventDefault();
+});
+</script>
+</html>
