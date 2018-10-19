@@ -2,8 +2,40 @@
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
+<style>
+    body{
+      background: #f1c40f;
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+    html{
+      font-family: sans-serif;
+    }
+
+    p {
+      margin:0;
+      padding:20px;
+      /* transition:background 0.2s; */
+      flex:1;
+      font-family:'helvetica neue';
+      font-size: 20px;
+      font-weight: 200;
+      border-left: 1px solid #D1E2FF;
+      min-width: 200px;
+      font-family:helvetica ;
+    }
+</style>
 <body>
-<form action="charge" method="POST">
+  <p>
+      some valid card numbers for testing :
+  </p>
+  <ul>
+    <li>4242424242424242</li>
+    <li>4000056655665556</li>
+    <li>5555555555554444</li>
+  </ul>
+<form id="pay" method="POST" action="charge">
   <script
     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
     data-key="pk_test_b9cWymo8P4RXAY7tAkaHy3Fy"

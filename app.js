@@ -20,23 +20,14 @@ app.post('/api/posts', verifyToken, (req, res) => {
   });
 });
 
-app.get('/api/pay', (req, res) => {
+app.get('/api/pay1', (req, res) => {
+  console.log(11);
   res.sendFile(__dirname + '/payment.html');
 });
 
 app.post('/api/pay',verifyToken, (req, res) => {
   console.log(__dirname);
-  console.log("1A");
-  // res.json({
-  //   message: 'Post created...'
-  // });
-  res.sendFile(__dirname + '/payment.html');
-
-  // res.writeHead(301, {'Location': __dirname + '/payment.html'});
-  // return res.end();
-  // res.redirect(__dirname + '/payment.html');
-    // res.location(__dirname + '/payment.html');
-    // res.json({status: "Success", redirect:  __dirname + '/payment.html'});
+  res.send('api/pay1');
 });
 
 app.post('/api/payment', (req, res) => {
@@ -44,8 +35,6 @@ app.post('/api/payment', (req, res) => {
   users.set("admin","admin");
   if(users.get(req.body.username)==req.body.password){
     jwt.sign({user : req.body.username}, 'secretkey', { expiresIn: '1h' }, (err, token) => {
-      // res.sendFile(__dirname + '/payment.html');
-      // res.cookie('key',token);
       res.send(token)
     });
   }
@@ -53,7 +42,7 @@ app.post('/api/payment', (req, res) => {
     res.sendStatus(403);
   }
 });
-app.post('/api/charge',verifyToken, (req, res) => {
+app.post('/api/charge', (req, res) => {
 
   const token = req.body.stripeToken; // Using Express
 
@@ -69,6 +58,7 @@ function verifyToken(req, res, next) {
   if(typeof bearerHeader !== 'undefined') {
     const bearer = bearerHeader.split(' ');
     const bearerToken = bearer[1];
+    console.log(bearerToken);
     jwt.verify(bearerToken, 'secretkey', (err, authData) => {
       if(err) {
         res.sendStatus(403);
